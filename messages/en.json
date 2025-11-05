@@ -102,5 +102,10 @@
     "fr": "Français",
     "en": "English",
     "switchLanguage": "Switch Language"
+  },
+  "reviews": {
+    "title": "Everyone can spread happiness",
+    "prev": "Previous",
+    "next": "Next"
   }
 }

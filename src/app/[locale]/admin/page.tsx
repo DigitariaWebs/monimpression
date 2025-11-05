@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 type Order = {
   id: string;
@@ -17,16 +17,22 @@ export default function AdminPage() {
 
   const fetchOrders = async () => {
     setLoading(true);
-    const res = await fetch('/api/orders');
+    const res = await fetch("/api/orders");
     const json = await res.json();
     setOrders(json.orders || []);
     setLoading(false);
   };
 
-  useEffect(() => { fetchOrders(); }, []);
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   const setStatus = async (id: string, status: string) => {
-    await fetch('/api/orders', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status }) });
+    await fetch("/api/orders", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, status }),
+    });
     fetchOrders();
   };
 
@@ -47,19 +53,49 @@ export default function AdminPage() {
           </thead>
           <tbody>
             {loading && (
-              <tr><td className="p-3" colSpan={6}>Chargement…</td></tr>
+              <tr>
+                <td className="p-3" colSpan={6}>
+                  Chargement…
+                </td>
+              </tr>
             )}
-            {orders.map(o => (
+            {orders.map((o) => (
               <tr key={o.id} className="border-t">
-                <td className="p-3">{new Date(o.created_at).toLocaleString()}</td>
+                <td className="p-3">
+                  {new Date(o.created_at).toLocaleString()}
+                </td>
                 <td className="p-3">{o.email}</td>
-                <td className="p-3">{(o.amount/100).toFixed(2)} {o.currency.toUpperCase()}</td>
+                <td className="p-3">
+                  {(o.amount / 100).toFixed(2)} {o.currency.toUpperCase()}
+                </td>
                 <td className="p-3">{o.status}</td>
-                <td className="p-3">{o.design_url ? <a href={o.design_url} target="_blank" className="text-slate-900 underline">Télécharger</a> : '-'}</td>
+                <td className="p-3">
+                  {o.design_url ? (
+                    <a
+                      href={o.design_url}
+                      target="_blank"
+                      className="text-slate-900 underline"
+                    >
+                      Télécharger
+                    </a>
+                  ) : (
+                    "-"
+                  )}
+                </td>
                 <td className="p-3">
                   <div className="flex gap-2">
-                    <button className="btn-primary" onClick={()=>setStatus(o.id,'fulfilled')}>Marquer livré</button>
-                    <button className="btn-primary" onClick={()=>setStatus(o.id,'failed')}>Annuler</button>
+                    <button
+                      className="btn-primary"
+                      onClick={() => setStatus(o.id, "fulfilled")}
+                    >
+                      Marquer livré
+                    </button>
+                    <button
+                      className="btn-primary"
+                      onClick={() => setStatus(o.id, "failed")}
+                    >
+                      Annuler
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -70,5 +106,3 @@ export default function AdminPage() {
     </div>
   );
 }
-
-

@@ -7,46 +7,40 @@ import { getTranslations } from "next-intl/server";
 import { setRequestLocale } from "next-intl/server";
 
 const pick = (slug: string) => GARMENTS.find((g) => g.slug === slug);
-const popular: Product[] = [
+const popularBase: Omit<Product, "name">[] = [
   {
     id: "hoodie",
     slug: "hoodie",
-    name: "Hoodie unisexe",
     price: 29.99,
     image: pick("hoodie")?.image || "/assets/products/hoodie.svg",
   },
   {
     id: "crewneck",
     slug: "crewneck",
-    name: "Col rond unisexe",
     price: 27.99,
     image: pick("crewneck")?.image || "/assets/products/tshirt.svg",
   },
   {
     id: "tee-short",
     slug: "tee-short",
-    name: "T-shirt manches courtes (adulte)",
     price: 19.99,
     image: pick("tee-short")?.image || "/assets/products/tshirt.svg",
   },
   {
     id: "tee-long",
     slug: "tee-long",
-    name: "T-shirt manches longues (adulte)",
     price: 21.99,
     image: pick("tee-long")?.image || "/assets/products/tshirt.svg",
   },
   {
     id: "tee-short-kid",
     slug: "tee-short-kid",
-    name: "T-shirt manches courtes (enfant)",
     price: 19.99,
     image: pick("tee-short-kid")?.image || "/assets/products/tshirt.svg",
   },
   {
     id: "trucker-cap",
     slug: "trucker-cap",
-    name: "Casquette camionneur",
     price: 25.0,
     image: pick("trucker-cap")?.image || "/assets/casquetterrouge.jpg",
   },
@@ -116,9 +110,29 @@ export default async function HomePage({
           </Link>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {popular.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
+          {popularBase.map((p) => {
+            const nameKey =
+              p.id === "tee-short"
+                ? "teeShort"
+                : p.id === "tee-long"
+                  ? "teeLong"
+                  : p.id === "tee-short-kid"
+                    ? "teeShortKid"
+                    : p.id === "trucker-cap"
+                      ? "truckerCap"
+                      : p.id;
+            const product: Product = {
+              ...(p as any),
+              name: tProducts(nameKey as any),
+            };
+            return (
+              <ProductCard
+                key={p.id}
+                product={product}
+                ctaLabel={tProducts("customize")}
+              />
+            );
+          })}
         </div>
       </section>
 
@@ -179,7 +193,7 @@ export default async function HomePage({
           />
           <img
             src="/assets/image a mettre dans les blocs.svg"
-            alt="Qualité garantie"
+            alt={t("features.quality")}
             className="h-10"
           />
         </div>

@@ -1,7 +1,7 @@
-import type { MetadataRoute } from 'next';
+import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://custom-buzz.example.com';
+  const base = "https://custom-buzz.example.com";
   return [
     { url: `${base}/`, lastModified: new Date() },
     { url: `${base}/customizer`, lastModified: new Date() },
@@ -16,5 +16,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/tasses`, lastModified: new Date() },
   ];
 }
-
-

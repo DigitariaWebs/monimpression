@@ -1,10 +1,22 @@
-export const metadata = { title: 'FAQ — Custom Buzz' };
+export const metadata = { title: "FAQ — Custom Buzz" };
 
 const faqs = [
-  { q: 'Combien de temps pour produire un t-shirt ?', a: 'La plupart des petites commandes sont prêtes en 5 à 15 minutes en boutique. En ligne, prévoyez 1-3 jours ouvrables selon la charge.' },
-  { q: 'Quels formats d’images acceptez-vous ?', a: 'PNG/JPG recommandés. Pour les logos, un SVG ou PNG haute résolution donnera le meilleur résultat.' },
-  { q: 'Puis-je imprimer devant/derrière ?', a: 'Oui. Notre outil vous laisse choisir la zone d’impression et positionner votre design.' },
-  { q: 'Offrez-vous des rabais de volume ?', a: 'Oui, contactez-nous via la page Soumission pour un prix sur mesure.' },
+  {
+    q: "Combien de temps pour produire un t-shirt ?",
+    a: "La plupart des petites commandes sont prêtes en 5 à 15 minutes en boutique. En ligne, prévoyez 1-3 jours ouvrables selon la charge.",
+  },
+  {
+    q: "Quels formats d’images acceptez-vous ?",
+    a: "PNG/JPG recommandés. Pour les logos, un SVG ou PNG haute résolution donnera le meilleur résultat.",
+  },
+  {
+    q: "Puis-je imprimer devant/derrière ?",
+    a: "Oui. Notre outil vous laisse choisir la zone d’impression et positionner votre design.",
+  },
+  {
+    q: "Offrez-vous des rabais de volume ?",
+    a: "Oui, contactez-nous via la page Soumission pour un prix sur mesure.",
+  },
 ];
 
 export default function FAQPage() {
@@ -22,5 +34,3 @@ export default function FAQPage() {
     </div>
   );
 }
-
-

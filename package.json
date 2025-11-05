@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "format": "prettier --write .",
     "postinstall": "patch -p0 < /dev/null || echo 'no patches'"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.6",
     "postcss": "^8.4.47",
+    "prettier": "^3.6.2",
     "tailwindcss": "^3.4.14",
     "typescript": "^5.6.2"
   }
