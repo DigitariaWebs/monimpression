@@ -395,7 +395,7 @@ const CustomizerCanvas = forwardRef<CustomizerHandle, Props>(
     };
 
     const drawGrid = () => {
-      const lines: JSX.Element[] = [];
+      const lines = [];
       if (!showGrid) return null;
       const step = 20;
       for (let x = printRect.x; x <= printRect.x + printRect.w; x += step) {
