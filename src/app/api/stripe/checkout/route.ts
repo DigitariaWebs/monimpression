@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 
 export async function POST(req: NextRequest) {
   try {
-    const { orderId, productId } = await req.json();
+    const { orderId, productId, cancel_url } = await req.json();
     const { data: product } = await supabase
       .from("products")
       .select("*")
@@ -17,7 +17,9 @@ export async function POST(req: NextRequest) {
       mode: "payment",
       payment_method_types: ["card"],
       success_url: `${req.nextUrl.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${req.nextUrl.origin}/product/${productId}/personnaliser`,
+      cancel_url:
+        cancel_url ||
+        `${req.nextUrl.origin}/product/${productId}/personnaliser`,
       line_items: [
         {
           price_data: {

@@ -27,7 +27,8 @@ export async function PATCH(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const { productId, email, design } = await req.json();
+    const { productId, email, design, size, description, name } =
+      await req.json();
     if (
       !process.env.NEXT_PUBLIC_SUPABASE_URL ||
       !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -37,13 +38,13 @@ export async function POST(req: NextRequest) {
           error:
             "Supabase non configuré. Ajoutez NEXT_PUBLIC_SUPABASE_URL et NEXT_PUBLIC_SUPABASE_ANON_KEY dans .env.local",
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
     if (!email || !productId || !design) {
       return NextResponse.json(
         { error: "Champs manquants: email, productId, design" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -59,6 +60,13 @@ export async function POST(req: NextRequest) {
     }
     const amount = product?.price ?? 2500;
 
+    const designData = JSON.stringify({
+      image: design,
+      size: size || "",
+      description: description || "",
+      name: name || "",
+    });
+
     const { data, error } = await supabase
       .from("orders")
       .insert({
@@ -66,7 +74,7 @@ export async function POST(req: NextRequest) {
         email,
         amount,
         currency: "cad",
-        design_url: design,
+        design_url: designData,
       })
       .select("id, amount")
       .single();
