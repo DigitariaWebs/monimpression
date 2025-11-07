@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
 
         await resend.emails.send({
           from: "monimpression <no-reply@monimpression.dev>",
-          to: email,
+          to: [email, process.env.ADMIN_EMAIL || "admin@example.com"], // Send to both customer and admin
           subject: "Merci pour votre commande — monimpression",
           html,
           attachments: attachments as any,
